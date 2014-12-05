@@ -5,7 +5,6 @@ import java.io.IOException;
 import android.app.Service;
 import android.content.Intent;
 import android.media.MediaPlayer;
-import android.media.MediaPlayer.OnPreparedListener;
 import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
@@ -70,10 +69,10 @@ public class RadioService extends Service {
 				mPlayer.prepareAsync();
 
 			} catch (IllegalStateException e) {
-				// TODO Auto-generated catch block
+
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+
 				e.printStackTrace();
 			}
 

@@ -8,13 +8,11 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.example.mediaplayer.RadioService.RadioBinder;
 
@@ -29,7 +27,7 @@ public class SoundRep extends Fragment implements OnClickListener,
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
+
 		super.onCreate(savedInstanceState);
 
 		setRetainInstance(true);
@@ -105,7 +103,7 @@ public class SoundRep extends Fragment implements OnClickListener,
 
 	@Override
 	public void onServiceDisconnected(ComponentName name) {
-		// TODO Auto-generated method stub
+
 		mRadioBinder = null;
 	}
 
