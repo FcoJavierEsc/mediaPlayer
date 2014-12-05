@@ -5,13 +5,14 @@ import java.io.IOException;
 import android.app.Service;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.media.MediaPlayer.OnPreparedListener;
 import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
 
 public class RadioService extends Service {
 
-	 private MediaPlayer mPlayer = null;
+	private MediaPlayer mPlayer = null;
 
 	// public static final String EXTRA_URL =
 	// "com.example.mediaplayer.EXTRA_URL";
@@ -37,8 +38,9 @@ public class RadioService extends Service {
 
 	@Override
 	public IBinder onBind(Intent intent) {
-
-		return new RadioBinder();
+		RadioBinder nRadioBinder = new RadioBinder();
+		// nRadioBinder.
+		return nRadioBinder;
 	}
 
 	public class RadioBinder extends Binder {
@@ -51,19 +53,28 @@ public class RadioService extends Service {
 
 		public void start(String url) {
 
-			if (mPlayer == null) {
-				try {
-					mPlayer=new MediaPlayer();
+			try {
+				if (mPlayer == null) {
+					mPlayer = new MediaPlayer();
+					mPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+
+						@Override
+						public void onPrepared(MediaPlayer player) {
+							player.start();
+						}
+
+					});
+
 					mPlayer.setDataSource(url);
-					mPlayer.prepare();
-					mPlayer.start();
-				} catch (IllegalStateException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
 				}
+				mPlayer.prepareAsync();
+
+			} catch (IllegalStateException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 
 		}
@@ -78,6 +89,8 @@ public class RadioService extends Service {
 			mPlayer.stop();
 			mPlayer.reset();
 		}
+
 	}
+
 
 }

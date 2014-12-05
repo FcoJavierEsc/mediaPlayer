@@ -21,37 +21,4 @@
 	        android:src="@android:drawable/checkbox_off_background" />
     </LinearLayout>
 
-    
-	<LinearLayout android:orientation="horizontal"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content">
-	    <Button
-	        android:id="@+id/btn_start_service"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text="Comenzar servicio" />
-	
-	    <Button
-	        android:id="@+id/btn_stop_service"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text="Parar Servicio" />
-    </LinearLayout>
-    
-	<LinearLayout android:orientation="horizontal"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content">
-	    <Button
-	        android:id="@+id/btn_bind_service"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text="Enlazar servicio" />
-	    
-	    <Button
-	        android:id="@+id/btn_unbind_service"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text="Desenlazar servicio" />
-    </LinearLayout>
-
 </LinearLayout>
