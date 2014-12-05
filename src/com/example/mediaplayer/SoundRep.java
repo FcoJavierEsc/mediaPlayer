@@ -1,15 +1,9 @@
 package com.example.mediaplayer;
 
-import java.io.IOException;
-
-import com.example.mediaplayer.RadioService.RadioBinder;
-
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.media.MediaPlayer;
-import android.media.MediaPlayer.OnPreparedListener;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
@@ -20,22 +14,25 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
-public class SoundRep extends Fragment implements OnClickListener ,ServiceConnection{
+import com.example.mediaplayer.RadioService.RadioBinder;
 
+public class SoundRep extends Fragment implements OnClickListener,
+		ServiceConnection {
 
-	private boolean mIsPrep = false;
-	private Button mPlaypause = null;
-	private Button mStop = null;
+	// private boolean mIsPrep = false;
+	private ImageButton mPlaypause = null;
+	private ImageButton mStop = null;
 
-	private RadioBinder mRadioBinder=null;
-	
+	private RadioBinder mRadioBinder = null;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		
+
 		setRetainInstance(true);
 	}
 
@@ -49,32 +46,23 @@ public class SoundRep extends Fragment implements OnClickListener ,ServiceConnec
 
 		Log.v("TTT", "ESOES");
 
-		mPlaypause = (Button) root.findViewById(R.id.btn_play_pause);
-		mStop = (Button) root.findViewById(R.id.btn_stop);
+		mPlaypause = (ImageButton) root.findViewById(R.id.btn_play_pause);
+		mStop = (ImageButton) root.findViewById(R.id.btn_stop);
 		mPlaypause.setOnClickListener(this);
 		mStop.setOnClickListener(this);
 		mStop.setVisibility(View.GONE);
 
-		mPlaypause.setText("PLAY");
+		mPlaypause.setImageResource(android.R.drawable.ic_media_play);
 
-		if (mRadioBinder == null) {
-			 Intent intentBind = new Intent(getActivity(),RadioService.class);
-			 getActivity().bindService(intentBind,this,Context.BIND_AUTO_CREATE);
-			 
-		}
-		
 		Button btnser = (Button) root.findViewById(R.id.btn_start_service);
 		btnser.setOnClickListener(this);
 		Button stpser = (Button) root.findViewById(R.id.btn_stop_service);
 		stpser.setOnClickListener(this);
-		
 
 		Button bndser = (Button) root.findViewById(R.id.btn_bind_service);
-		stpser.setOnClickListener(this);
+		bndser.setOnClickListener(this);
 		Button unbndser = (Button) root.findViewById(R.id.btn_unbind_service);
-		stpser.setOnClickListener(this);
-		Button addser = (Button) root.findViewById(R.id.btn_add_service);
-		stpser.setOnClickListener(this);
+		unbndser.setOnClickListener(this);
 		return root;
 	}
 
@@ -82,64 +70,79 @@ public class SoundRep extends Fragment implements OnClickListener ,ServiceConnec
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btn_play_pause:
-			
+			if (mRadioBinder != null) {
+				if (mRadioBinder.isPlaying()) {
+					mRadioBinder.pause();
+				} else {
+					Toast.makeText(getActivity(), "TES PLAY",
+							Toast.LENGTH_SHORT).show();
 
-			
+					mRadioBinder
+							.start("http://4613.live.streamtheworld.com:80/LOS40_SC");
+					Toast.makeText(getActivity(), "pues PLAY",
+							Toast.LENGTH_SHORT).show();
+				}
+			} else
+				Toast.makeText(getActivity(), "NO ESTA ACTIVO",
+						Toast.LENGTH_SHORT).show();
 			break;
 		case R.id.btn_stop:
-		
-			mStop.setVisibility(View.GONE);
+			if (mRadioBinder != null) {
+				mRadioBinder.stop();
+			}
 			break;
-					
-			
-			
+
+		// case R.id.btn_bind_service:
+		// Intent intentBind = new Intent(getActivity(),RadioService.class);
+		// //intentBind.putExtra(RadioService.EXTRA_URL,
+		// "http://4613.live.streamtheworld.com:80/LOS40_SC");
+		// getActivity().bindService(intentBind,this,Context.BIND_AUTO_CREATE);
+		// break;
+		//
 		case R.id.btn_bind_service:
-			 Intent intentBind = new Intent(getActivity(),RadioService.class);
-			 intentBind.putExtra(RadioService.EXTRA_URL, "http://4613.live.streamtheworld.com:80/LOS40_SC");
-		    
-			getActivity().bindService(intentBind,this,Context.BIND_AUTO_CREATE);
+			if (mRadioBinder == null) {
+				Intent intentBind = new Intent(getActivity(),
+						RadioService.class);
+				Toast.makeText(getActivity(), "Bind antes", Toast.LENGTH_SHORT)
+						.show();
+				Log.v("=========================", "VAMOS ANTES");
+				getActivity().bindService(intentBind, this,
+						Context.BIND_AUTO_CREATE);
+				Log.v("=========================", "VAMOS despues");
+				Toast.makeText(getActivity(), "Bind despues",
+						Toast.LENGTH_SHORT).show();
+
+			} else
+				Toast.makeText(getActivity(), "Bind no necesario",
+						Toast.LENGTH_SHORT).show();
+
 			break;
 		case R.id.btn_unbind_service:
-			 getActivity().unbindService(this);
-			 if (mRadioBinder != null) {
-				 getActivity().unbindService(this);
-				 mRadioBinder = null;
-			 }
-			break;
-		
-		case R.id.btn_add_service:
-			if (mRadioBinder!=null){
-				Toast.makeText(getActivity(), "2+3"+mRadioBinder.suma(2,3), Toast.LENGTH_SHORT).show();
+			if (mRadioBinder != null) {
+				getActivity().unbindService(this);
+				mRadioBinder = null;
 			}
+			break;
+
 		}
 
-	}
-
-	private void play() {
-		mPlayer.pause();
-		mPlaypause.setText("PLAY");
-		mStop.setVisibility(View.GONE);
 	}
 
 	@Override
 	public void onDestroyView() {
 
 		super.onDestroyView();
-		
-	
 	}
 
 	@Override
 	public void onServiceConnected(ComponentName name, IBinder service) {
 		mRadioBinder = (RadioBinder) service;
-		
 	}
 
 	@Override
 	public void onServiceDisconnected(ComponentName name) {
 		// TODO Auto-generated method stub
-		mRadioBinder= null;
+		mRadioBinder = null;
 	}
-	
-	
+
 }
