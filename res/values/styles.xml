@@ -17,4 +17,19 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
+      <style name="ListItemRow">
+        <item name="android:textColor">#333</item>
+        <item name="android:paddingLeft">10dp</item>
+    </style>
+    
+    <style name="ListItemRow.Title">
+        <item name="android:textSize">@dimen/list_item_title_text_size</item>
+    </style>
+    
+    <style name="ListItemRow.Subtitle">
+        <item name="android:textSize">@dimen/list_item_subtitle_text_size</item>
+        <item name="android:textStyle">italic</item>
+     </style>
+       
+    
 </resources>

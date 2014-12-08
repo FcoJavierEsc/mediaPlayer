@@ -14,12 +14,9 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
-import com.example.mediaplayer.RadioService.RadioBinder;
-
 public class SoundRep extends Fragment implements OnClickListener,
 		ServiceConnection {
 
-	// private boolean mIsPrep = false;
 	private ImageButton mPlaypause = null;
 	private ImageButton mStop = null;
 	private String mUrl = "http://4613.live.streamtheworld.com:80/LOS40_SC";
@@ -54,6 +51,7 @@ public class SoundRep extends Fragment implements OnClickListener,
 
 	@Override
 	public void onClick(View v) {
+
 		switch (v.getId()) {
 		case R.id.btn_play_pause:
 			if (mRadioBinder == null) {
@@ -62,29 +60,30 @@ public class SoundRep extends Fragment implements OnClickListener,
 				getActivity().bindService(intentBind, this,
 						Context.BIND_AUTO_CREATE);
 			} else {
-				mStop.setVisibility(View.VISIBLE);
-				if (mRadioBinder.isPlaying()) {
-					mRadioBinder.pause();
-					mPlaypause.setImageResource(android.R.drawable.ic_media_play);
-				} else {
-					mRadioBinder.start(mUrl);
-					mPlaypause.setImageResource(android.R.drawable.ic_media_pause);
-				}
+				mRadioBinder.startPause(mUrl);
 			}
 
 			break;
 		case R.id.btn_stop:
-			if (mRadioBinder != null) {
-				mRadioBinder.stop();
-				getActivity().unbindService(this);
-				
-				mRadioBinder = null;
-				mStop.setVisibility(View.GONE);
-				mPlaypause.setImageResource(android.R.drawable.ic_media_play);
-			}
+			mRadioBinder.stop();
 			break;
 		}
+		visibilidad();
+	}
 
+	private void visibilidad() {
+		if (mRadioBinder != null) {
+			if (mRadioBinder.exist())
+				mStop.setVisibility(View.VISIBLE);
+			else
+				mStop.setVisibility(View.GONE);
+
+			if (mRadioBinder.isPlaying())
+				mPlaypause.setImageResource(android.R.drawable.ic_media_pause);
+			else
+				mPlaypause.setImageResource(android.R.drawable.ic_media_play);
+		} else
+			mStop.setVisibility(View.GONE);
 	}
 
 	@Override
@@ -96,7 +95,7 @@ public class SoundRep extends Fragment implements OnClickListener,
 	@Override
 	public void onServiceConnected(ComponentName name, IBinder service) {
 		mRadioBinder = (RadioBinder) service;
-		mRadioBinder.start(mUrl);
+		mRadioBinder.startPause(mUrl);
 		mStop.setVisibility(View.VISIBLE);
 		mPlaypause.setImageResource(android.R.drawable.ic_media_pause);
 	}

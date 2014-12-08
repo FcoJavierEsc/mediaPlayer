@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal" >
+
+    <FrameLayout
+        android:id="@+id/listitem_image_container"
+        android:layout_width="100dp"
+        android:layout_height="60dp" >
+
+        <ImageView
+            android:id="@+id/listitem_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:contentDescription="@string/list_item_imagen"
+            android:src="@drawable/esradio" />
+
+        <ProgressBar
+            android:id="@+id/listitem_loading"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/listitem_titulo"
+            style="@style/ListItemRow.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="titulo" />
+
+        <TextView
+            android:id="@+id/listitem_subtitulo"
+            style="@style/ListItemRow.Subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Subitulo" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -6,5 +6,6 @@
     <string name="action_settings">Settings</string>
     <string name="image_play_pause">Play pause</string>
     <string name="image_stop">STOP</string>
+    <string name="list_item_imagen">Una imagen, mil palabras</string>
     
 </resources>
