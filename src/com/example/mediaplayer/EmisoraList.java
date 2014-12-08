@@ -6,6 +6,7 @@ import java.util.List;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+// Singleton de la lista de emisoras
 
 
 public class EmisoraList {
@@ -60,4 +61,17 @@ public class EmisoraList {
 
 		return copy;
 	}
+	
+	public Emisora getEmisora(int cual){
+		
+	    for (Emisora rem :mListEmisora){
+	    if (cual == 0)
+	    	return rem;
+	    cual--;
+	    }
+	return null;
+	}
 }
+
+
+

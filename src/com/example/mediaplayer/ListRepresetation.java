@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+// Representacion y detalle de la lista de emisoras
 
 public class ListRepresetation extends ArrayAdapter<Emisora> {
     
@@ -18,13 +19,13 @@ public class ListRepresetation extends ArrayAdapter<Emisora> {
 	public ListRepresetation(Context context, int resource,
 			 List<Emisora> objects) {
 		super(context, resource, objects);
-		// TODO Auto-generated constructor stub
+
 		mLayout=resource;
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		// TODO Auto-generated method stub
+
 				
 		LayoutInflater inflater = (LayoutInflater) getContext()
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -42,7 +43,7 @@ public class ListRepresetation extends ArrayAdapter<Emisora> {
 		 ProgressBar proBar = (ProgressBar)tSIRow.findViewById(R.id.listitem_loading);
 		 proBar.setVisibility(View.INVISIBLE);
 		 
-		return tSIRow;//super.getView(position, convertView, parent);
+		return tSIRow;
 	}
 
 		

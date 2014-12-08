@@ -14,9 +14,15 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
+// fragnent de atencion al usuario para escuchar, pausar o para una
+//emisora.
+
+
 public class SoundRep extends Fragment implements OnClickListener,
 		ServiceConnection {
-
+    final static String URL="com.example.mediaplayer.URL";
+	
+	
 	private ImageButton mPlaypause = null;
 	private ImageButton mStop = null;
 	private String mUrl = "http://4613.live.streamtheworld.com:80/LOS40_SC";

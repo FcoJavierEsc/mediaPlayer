@@ -1,9 +1,16 @@
 package com.example.mediaplayer;
 
+import java.io.Serializable;
+
 import android.graphics.Bitmap;
+// Datos funtamentales de una emisora
+public class Emisora implements Serializable{
 
-public class Emisora {
-
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3795648471367805454L;
+	
 	private TipoEmision mTipo;
 	private String mEmisoraNombre;
 	private String mUrl;
@@ -64,5 +71,13 @@ public class Emisora {
 	public void setLogo(Bitmap logo) {
 		this.mLogo = logo;
 	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return mEmisoraNombre+" "+mUrl+" "+getTipoStr();
+	}
+	
+	
 
 }

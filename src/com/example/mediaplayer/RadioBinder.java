@@ -6,13 +6,16 @@ import android.media.MediaPlayer;
 import android.os.Binder;
 import android.util.Log;
 
+
+// Atentos a un MediaPlayer para parar, pausa o inicio
+// del MediaPlayer, respetando el ciclo de vida del MediaPlayer
+
 public class RadioBinder extends Binder {
 
 	private MediaPlayer mPlayer = null;
 
 	public void startPause(String url) {
 		try {
-			Log.v("FFFF", "GOOOOL");
 			if (mPlayer == null) {
 				mPlayer = new MediaPlayer();
 				mPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {

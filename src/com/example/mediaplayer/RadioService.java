@@ -5,6 +5,10 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.IBinder;
 
+
+// crea el bind para que la clase que hemos creado RadiBinder 
+// sea conocida por la actividad o fragmento.
+
 public class RadioService extends Service {
 
 	private MediaPlayer mPlayer = null;
