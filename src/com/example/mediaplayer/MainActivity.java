@@ -58,7 +58,7 @@ public class MainActivity extends ActionBarActivity implements
 				Bundle args = new Bundle();
 				args.putString(SoundRep.URL, mEmisora.getUrl());
 				soundRep.setArguments(args);
-
+Log.v("PPPP","MANDAMOS "+mEmisora.getUrl());
 				mFgmgr.beginTransaction().replace(R.id.frame_place, soundRep)
 						.commit();
 			}

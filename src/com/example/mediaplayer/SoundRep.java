@@ -1,5 +1,6 @@
 package com.example.mediaplayer;
 
+import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,12 +22,11 @@ import android.widget.ImageButton;
 
 public class SoundRep extends Fragment implements OnClickListener,
 		ServiceConnection {
-    final static String URL="com.example.mediaplayer.URL";
+    public static final String URL="com.example.mediaplayer.URL";
 	
-	
+	private String mUrl=null;
 	private ImageButton mPlaypause = null;
 	private ImageButton mStop = null;
-	private String mUrl = "http://4613.live.streamtheworld.com:80/LOS40_SC";
 	private RadioBinder mRadioBinder = null;
 
 	@Override
@@ -51,8 +52,12 @@ public class SoundRep extends Fragment implements OnClickListener,
 		mStop.setVisibility(View.GONE);
 
 		mPlaypause.setImageResource(android.R.drawable.ic_media_play);
-
-		return root;
+         Activity a= getActivity();
+         Intent i= a.getIntent();
+         
+		 mUrl = i.getStringExtra(SoundRep.URL);//, "http://sc-costadelmar.1.fm:10156/");
+		Log.v ("VVVV","LLEGA"+mUrl);
+		 return root;
 	}
 
 	@Override
